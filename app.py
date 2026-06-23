@@ -278,7 +278,7 @@ html = f"""
   <div class="ace-header">
     <div>
       <div class="ace-logo">ACE<span></span> SCANNERS</div>
-      <div class="ace-tagline">Scanner Suite — TSX</div>
+      <div class="ace-tagline">Accumulation Computation Engine — TSX</div>
     </div>
     <div class="ace-clock-block">
       <div class="ace-clock">{time_str}</div>
