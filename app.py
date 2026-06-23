@@ -277,7 +277,7 @@ html = f"""
 
   <div class="ace-header">
     <div>
-      <div class="ace-logo">ACE<span></span>SCANNER HUB</div>
+      <div class="ace-logo">ACE<span></span> SCANNERS</div>
       <div class="ace-tagline">Scanner Suite — TSX</div>
     </div>
     <div class="ace-clock-block">
