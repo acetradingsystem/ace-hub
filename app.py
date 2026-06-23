@@ -42,6 +42,7 @@ html = f"""
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -172,6 +173,17 @@ html = f"""
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;
+  }}
+
+  @media (max-width: 600px) {{
+    .ace-hero-logo {{ font-size: 2rem; letter-spacing: 0.12em; }}
+    .ace-spade {{ font-size: 1.7rem; }}
+    .ace-hero {{ padding: 2rem 1.2rem 1.8rem; }}
+    .ace-wrapper {{ padding: 1.2rem 1rem; }}
+    .ace-grid {{ grid-template-columns: 1fr; gap: 0.9rem; }}
+    .ace-status-bar {{ flex-direction: column; gap: 0.6rem; }}
+    .ace-clock-row {{ justify-content: flex-start; }}
+    .ace-footer {{ flex-direction: column; gap: 0.3rem; }}
   }}
 
   .ace-card {{
@@ -389,4 +401,4 @@ html = f"""
 </html>
 """
 
-components.html(html, height=820, scrolling=False)
+components.html(html, height=1000, scrolling=True)
