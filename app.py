@@ -15,7 +15,7 @@ st.markdown("""
   #MainMenu, footer, header { visibility: hidden; }
   [data-testid="stToolbar"] { display: none; }
   .block-container { padding: 0 !important; max-width: 100% !important; }
-  [data-testid="stAppViewContainer"] { background-color: #0D0F14 !important; }
+  [data-testid="stAppViewContainer"] { background-color: #0a0e1a !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -32,8 +32,8 @@ is_trading_day = now_et.weekday() < 5
 d1_active = is_trading_day and hour >= 16
 h1_active = is_trading_day and (hour > 10 or (hour == 10 and minute >= 31))
 
-d1_dot_class  = "dot-green" if d1_active  else "dot-dim"
-h1_dot_class  = "dot-blue"  if h1_active  else "dot-dim"
+d1_dot_class = "dot-green" if d1_active else "dot-dim"
+h1_dot_class = "dot-blue"  if h1_active else "dot-dim"
 d1_text = "D1 — Ready to run" if d1_active else "D1 — Run after 4:00 PM ET"
 h1_text = "H1 — Ready to run" if h1_active else "H1 — Run after 10:31 AM ET"
 
@@ -48,71 +48,91 @@ html = f"""
   * {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
   body {{
-    background: #0D0F14;
+    background: #0a0e1a;
     color: #E8EAF0;
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
   }}
 
+  /* ── Hero header (matches ACE scanner style) ── */
+  .ace-hero {{
+    background: linear-gradient(180deg, #0d1526 0%, #0a0e1a 100%);
+    text-align: center;
+    padding: 3rem 2rem 2.5rem;
+    border-bottom: 1px solid #1a2235;
+  }}
+
+  .ace-hero-logo {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #F5A623;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }}
+
+  .ace-spade {{
+    font-size: 2.4rem;
+    color: #F5A623;
+  }}
+
+  .ace-hero-sub {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    color: #5A7090;
+    text-transform: uppercase;
+  }}
+
+  .ace-hero-divider {{
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #1a2235 20%, #1a2235 80%, transparent);
+    margin-top: 2rem;
+  }}
+
+  /* ── Content wrapper ── */
   .ace-wrapper {{
     width: 100%;
     max-width: 960px;
-    padding: 2.5rem 2rem 2rem 2rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 2rem 2rem;
   }}
 
-  .ace-header {{
+  /* ── Clock row ── */
+  .ace-clock-row {{
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 2.8rem;
-    border-bottom: 1px solid #1E2130;
-    padding-bottom: 1.2rem;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
   }}
-
-  .ace-logo {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.9rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: #FFFFFF;
-  }}
-
-  .ace-logo span {{ color: #00FF88; }}
-
-  .ace-tagline {{
-    font-size: 0.78rem;
-    color: #5A6178;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-top: 0.2rem;
-    font-family: 'JetBrains Mono', monospace;
-  }}
-
-  .ace-clock-block {{ text-align: right; }}
 
   .ace-clock {{
     font-family: 'JetBrains Mono', monospace;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #FFFFFF;
+    color: #8892A4;
     letter-spacing: 0.06em;
   }}
 
   .ace-clock-label {{
-    font-size: 0.72rem;
-    color: #5A6178;
+    font-size: 0.7rem;
+    color: #3A4055;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-top: 0.15rem;
+    margin-top: 0.1rem;
     font-family: 'JetBrains Mono', monospace;
+    text-align: right;
   }}
 
+  /* ── Status bar ── */
   .ace-status-bar {{
     display: flex;
     gap: 1.5rem;
-    margin-bottom: 2.2rem;
+    margin-bottom: 2rem;
     flex-wrap: wrap;
   }}
 
@@ -121,7 +141,7 @@ html = f"""
     align-items: center;
     gap: 0.45rem;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     letter-spacing: 0.08em;
     color: #8892A4;
     text-transform: uppercase;
@@ -147,6 +167,7 @@ html = f"""
     margin-bottom: 1rem;
   }}
 
+  /* ── Cards ── */
   .ace-grid {{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -154,8 +175,8 @@ html = f"""
   }}
 
   .ace-card {{
-    background: #131620;
-    border: 1px solid #1E2130;
+    background: #0d1220;
+    border: 1px solid #1a2235;
     border-radius: 10px;
     padding: 1.6rem 1.8rem;
     text-decoration: none;
@@ -176,16 +197,16 @@ html = f"""
   }}
 
   .ace-card:hover {{
-    background: #161926;
+    background: #111827;
     transform: translateY(-2px);
     text-decoration: none;
   }}
 
   .ace-card:hover::before {{ opacity: 1; }}
 
-  .card-d1::before {{ background: #00FF88; }}
+  .card-d1::before {{ background: #F5A623; }}
   .card-h1::before {{ background: #4DA6FF; }}
-  .card-d1:hover {{ border-color: #00FF8833; }}
+  .card-d1:hover {{ border-color: #F5A62333; }}
   .card-h1:hover {{ border-color: #4DA6FF33; }}
 
   .card-top {{
@@ -205,7 +226,7 @@ html = f"""
     border-radius: 4px;
   }}
 
-  .badge-d1 {{ background: #00FF8815; color: #00FF88; border: 1px solid #00FF8830; }}
+  .badge-d1 {{ background: #F5A62315; color: #F5A623; border: 1px solid #F5A62330; }}
   .badge-h1 {{ background: #4DA6FF15; color: #4DA6FF; border: 1px solid #4DA6FF30; }}
 
   .card-num {{
@@ -233,7 +254,7 @@ html = f"""
   .card-footer {{
     margin-top: 1.1rem;
     padding-top: 0.9rem;
-    border-top: 1px solid #1A1D2A;
+    border-top: 1px solid #1A2235;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -252,14 +273,14 @@ html = f"""
     transition: color 0.18s, transform 0.18s;
   }}
 
-  .card-d1:hover .card-arrow {{ color: #00FF88; }}
+  .card-d1:hover .card-arrow {{ color: #F5A623; }}
   .card-h1:hover .card-arrow {{ color: #4DA6FF; }}
   .ace-card:hover .card-arrow {{ transform: translateX(3px); }}
 
   .ace-footer {{
     margin-top: 3rem;
     padding-top: 1.2rem;
-    border-top: 1px solid #1A1D2A;
+    border-top: 1px solid #1A2235;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
     color: #2A2E3D;
@@ -273,91 +294,99 @@ html = f"""
 </style>
 </head>
 <body>
-<div class="ace-wrapper">
 
-  <div class="ace-header">
-    <div>
-      <div class="ace-logo">ACE<span></span> SCANNERS</div>
-      <div class="ace-tagline">Accumulation Computation Engine — TSX</div>
+  <!-- Hero header matching ACE scanner style -->
+  <div class="ace-hero">
+    <div class="ace-hero-logo">
+      <span class="ace-spade">♠</span> A C E
     </div>
-    <div class="ace-clock-block">
-      <div class="ace-clock">{time_str}</div>
-      <div class="ace-clock-label">ET &nbsp;·&nbsp; {date_str}</div>
+    <div class="ace-hero-sub">Accumulation Computation Engine</div>
+    <div class="ace-hero-divider"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="ace-wrapper">
+
+    <div class="ace-clock-row">
+      <div>
+        <div class="ace-clock">{time_str} ET</div>
+        <div class="ace-clock-label">{date_str}</div>
+      </div>
     </div>
+
+    <div class="ace-status-bar">
+      <div class="ace-status-pill"><span class="ace-dot {d1_dot_class}"></span> {d1_text}</div>
+      <div class="ace-status-pill"><span class="ace-dot {h1_dot_class}"></span> {h1_text}</div>
+      <div class="ace-status-pill"><span class="ace-dot dot-dim"></span> Excludes: Mining · Energy · Gold · Materials · Utilities · Real Estate</div>
+    </div>
+
+    <div class="ace-section">// Scanners</div>
+
+    <div class="ace-grid">
+
+      <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="ace-card card-d1">
+        <div class="card-top">
+          <span class="card-badge badge-d1">D1 · Daily</span>
+          <span class="card-num">ACE 1</span>
+        </div>
+        <div class="card-title">Narrow State</div>
+        <div class="card-desc">MA20 ≈ MA200 within 3% — rarest, highest conviction breakout setups. Holy Grail score 9+.</div>
+        <div class="card-footer">
+          <span class="card-timing">⏱ Run after 4:00 PM ET</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="https://ace-d1-ws.streamlit.app" target="_blank" class="ace-card card-d1">
+        <div class="card-top">
+          <span class="card-badge badge-d1">D1 · Daily</span>
+          <span class="card-num">ACE 2</span>
+        </div>
+        <div class="card-title">Wide Down RCB</div>
+        <div class="card-desc">MA20 well below MA200 — Random Consolidation Breakout setups in declining MA state.</div>
+        <div class="card-footer">
+          <span class="card-timing">⏱ Run after 4:00 PM ET</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="https://ace-h1-ns.streamlit.app" target="_blank" class="ace-card card-h1">
+        <div class="card-top">
+          <span class="card-badge badge-h1">H1 · Hourly</span>
+          <span class="card-num">ACE 3</span>
+        </div>
+        <div class="card-title">Narrow State H1</div>
+        <div class="card-desc">Hourly Narrow State breakouts — intraday MA convergence signals for same-day entries.</div>
+        <div class="card-footer">
+          <span class="card-timing">⏱ Run at 10:31 AM ET</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="https://ace-h1-ws.streamlit.app" target="_blank" class="ace-card card-h1">
+        <div class="card-top">
+          <span class="card-badge badge-h1">H1 · Hourly</span>
+          <span class="card-num">ACE 4</span>
+        </div>
+        <div class="card-title">Wide Down RCB H1</div>
+        <div class="card-desc">Hourly Wide Down RCB setups — declining MA state breakouts on the first hourly bar.</div>
+        <div class="card-footer">
+          <span class="card-timing">⏱ Run at 10:31 AM ET</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="ace-footer">
+      <span>acetradingsystem.com</span>
+      <span>TSX · Min $5 CAD · Oliver Velez / iFundTraders methodology</span>
+    </div>
+
   </div>
 
-  <div class="ace-status-bar">
-    <div class="ace-status-pill"><span class="ace-dot {d1_dot_class}"></span> {d1_text}</div>
-    <div class="ace-status-pill"><span class="ace-dot {h1_dot_class}"></span> {h1_text}</div>
-    <div class="ace-status-pill"><span class="ace-dot dot-dim"></span> Excludes: Mining · Energy · Gold · Materials · Utilities · Real Estate</div>
-  </div>
-
-  <div class="ace-section">// Scanners</div>
-
-  <div class="ace-grid">
-
-    <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="ace-card card-d1">
-      <div class="card-top">
-        <span class="card-badge badge-d1">D1 · Daily</span>
-        <span class="card-num">ACE 1</span>
-      </div>
-      <div class="card-title">Narrow State</div>
-      <div class="card-desc">MA20 ≈ MA200 within 3% — rarest, highest conviction breakout setups. Holy Grail score 9+.</div>
-      <div class="card-footer">
-        <span class="card-timing">⏱ Run after 4:00 PM ET</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="https://ace-d1-ws.streamlit.app" target="_blank" class="ace-card card-d1">
-      <div class="card-top">
-        <span class="card-badge badge-d1">D1 · Daily</span>
-        <span class="card-num">ACE 2</span>
-      </div>
-      <div class="card-title">Wide Down RCB</div>
-      <div class="card-desc">MA20 well below MA200 — Random Consolidation Breakout setups in declining MA state.</div>
-      <div class="card-footer">
-        <span class="card-timing">⏱ Run after 4:00 PM ET</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="https://ace-h1-ns.streamlit.app" target="_blank" class="ace-card card-h1">
-      <div class="card-top">
-        <span class="card-badge badge-h1">H1 · Hourly</span>
-        <span class="card-num">ACE 3</span>
-      </div>
-      <div class="card-title">Narrow State H1</div>
-      <div class="card-desc">Hourly Narrow State breakouts — intraday MA convergence signals for same-day entries.</div>
-      <div class="card-footer">
-        <span class="card-timing">⏱ Run at 10:31 AM ET</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="https://ace-h1-ws.streamlit.app" target="_blank" class="ace-card card-h1">
-      <div class="card-top">
-        <span class="card-badge badge-h1">H1 · Hourly</span>
-        <span class="card-num">ACE 4</span>
-      </div>
-      <div class="card-title">Wide Down RCB H1</div>
-      <div class="card-desc">Hourly Wide Down RCB setups — declining MA state breakouts on the first hourly bar.</div>
-      <div class="card-footer">
-        <span class="card-timing">⏱ Run at 10:31 AM ET</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-  </div>
-
-  <div class="ace-footer">
-    <span>acetradingsystem.com</span>
-    <span>TSX · Min $5 CAD · Oliver Velez / iFundTraders methodology</span>
-  </div>
-
-</div>
 </body>
 </html>
 """
 
-components.html(html, height=700, scrolling=False)
+components.html(html, height=820, scrolling=False)
