@@ -4,22 +4,21 @@ from datetime import datetime
 import pytz
 
 st.set_page_config(
-    page_title="ACE Trading System",
-    page_icon="⚡",
+    page_title="ACE Hub",
+    page_icon="♠",
     layout="wide",
 )
 
-# Hide Streamlit chrome
 st.markdown("""
 <style>
   #MainMenu, footer, header { visibility: hidden; }
   [data-testid="stToolbar"] { display: none; }
   .block-container { padding: 0 !important; max-width: 100% !important; }
-  [data-testid="stAppViewContainer"] { background-color: #0a0e1a !important; }
+  [data-testid="stAppViewContainer"] { background-color: #080c18 !important; }
+  iframe { display: block; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Time logic ──
 et_tz = pytz.timezone("America/New_York")
 now_et = datetime.now(et_tz)
 time_str = now_et.strftime("%H:%M:%S")
@@ -32,373 +31,388 @@ is_trading_day = now_et.weekday() < 5
 d1_active = is_trading_day and hour >= 16
 h1_active = is_trading_day and (hour > 10 or (hour == 10 and minute >= 31))
 
-d1_dot_class = "dot-green" if d1_active else "dot-dim"
-h1_dot_class = "dot-blue"  if h1_active else "dot-dim"
-d1_text = "D1 — Ready to run" if d1_active else "D1 — Run after 4:00 PM ET"
-h1_text = "H1 — Ready to run" if h1_active else "H1 — Run after 10:31 AM ET"
+d1_status = ("✦ READY TO RUN", "#00FF88", "#00FF8818", "#00FF8840") if d1_active else ("RUN AFTER 4:00 PM ET", "#F5A623", "#F5A62312", "#F5A62335")
+h1_status = ("✦ READY TO RUN", "#00FF88", "#00FF8818", "#00FF8840") if h1_active else ("RUN AT 10:31 AM ET", "#F5A623", "#F5A62312", "#F5A62335")
 
-html = f"""
-<!DOCTYPE html>
+html = f"""<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+* {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
-  body {{
-    background: #0a0e1a;
-    color: #E8EAF0;
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-  }}
+body {{
+  background: #080c18;
+  color: #E8EAF0;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}}
 
-  /* ── Hero header (matches ACE scanner style) ── */
-  .ace-hero {{
-    background: linear-gradient(180deg, #0d1526 0%, #0a0e1a 100%);
-    text-align: center;
-    padding: 3rem 2rem 2.5rem;
-    border-bottom: 1px solid #1a2235;
-  }}
+/* ── HERO ── */
+.hero {{
+  text-align: center;
+  padding: 2.8rem 1.5rem 2rem;
+  background: radial-gradient(ellipse at 50% 0%, #0f1d3a 0%, #080c18 70%);
+  border-bottom: 1px solid #111827;
+  position: relative;
+}}
 
-  .ace-hero-logo {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 3rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    color: #F5A623;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 0.6rem;
-  }}
+.hero-logo {{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: #F5A623;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  text-shadow: 0 0 40px #F5A62340;
+}}
 
-  .ace-spade {{
-    font-size: 2.4rem;
-    color: #F5A623;
-  }}
+.hero-sub {{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  color: #3a4a60;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}}
 
-  .ace-hero-sub {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.35em;
-    color: #5A7090;
-    text-transform: uppercase;
-  }}
+.hero-divider {{
+  width: 60px;
+  height: 1px;
+  background: #F5A62340;
+  margin: 1.4rem auto 0;
+}}
 
-  .ace-hero-divider {{
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #1a2235 20%, #1a2235 80%, transparent);
-    margin-top: 2rem;
-  }}
+/* ── CLOCK ── */
+.clock-bar {{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.9rem 1.5rem;
+  background: #0a0f1e;
+  border-bottom: 1px solid #0f1525;
+}}
 
-  /* ── Content wrapper ── */
-  .ace-wrapper {{
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 2rem 2rem 2rem 2rem;
-  }}
+.clock-time {{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #8892A4;
+  letter-spacing: 0.1em;
+}}
 
-  /* ── Clock row ── */
-  .ace-clock-row {{
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 1.5rem;
-  }}
+.clock-sep {{
+  color: #1e2840;
+  font-size: 0.8rem;
+}}
 
-  .ace-clock {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #8892A4;
-    letter-spacing: 0.06em;
-  }}
+.clock-date {{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #3a4a60;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}}
 
-  .ace-clock-label {{
-    font-size: 0.7rem;
-    color: #3A4055;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-top: 0.1rem;
-    font-family: 'JetBrains Mono', monospace;
-    text-align: right;
-  }}
+/* ── SECTION LABEL ── */
+.section-label {{
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #2a3650;
+  margin: 2.2rem 0 1.4rem;
+}}
 
-  /* ── Status bar ── */
-  .ace-status-bar {{
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }}
+/* ── GRID ── */
+.grid {{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4rem;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}}
 
-  .ace-status-pill {{
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    color: #8892A4;
-    text-transform: uppercase;
-  }}
+/* ── CARD ── */
+.card {{
+  background: #0c1122;
+  border-radius: 14px;
+  border: 1px solid #141d30;
+  padding: 1.8rem 1.6rem 1.6rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+}}
 
-  .ace-dot {{
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }}
+.card::after {{
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}}
 
-  .dot-green {{ background: #00FF88; box-shadow: 0 0 6px #00FF88; }}
-  .dot-blue  {{ background: #4DA6FF; box-shadow: 0 0 6px #4DA6FF; }}
-  .dot-dim   {{ background: #2A2E3D; }}
+.card:hover {{
+  transform: translateY(-3px);
+  text-decoration: none;
+}}
 
-  .ace-section {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #3A4055;
-    margin-bottom: 1rem;
-  }}
+/* D1 card — gold glow */
+.card-d1 {{ border-color: #1e2a40; }}
+.card-d1:hover {{ border-color: #F5A62340; box-shadow: 0 8px 40px #F5A62318; }}
+.card-d1::before {{
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, #F5A623, transparent);
+  border-radius: 14px 14px 0 0;
+}}
 
-  /* ── Cards ── */
-  .ace-grid {{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
-  }}
+/* H1 card — blue glow */
+.card-h1 {{ border-color: #1a2540; }}
+.card-h1:hover {{ border-color: #4DA6FF40; box-shadow: 0 8px 40px #4DA6FF18; }}
+.card-h1::before {{
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, #4DA6FF, transparent);
+  border-radius: 14px 14px 0 0;
+}}
 
-  @media (max-width: 600px) {{
-    .ace-hero-logo {{ font-size: 2rem; letter-spacing: 0.12em; }}
-    .ace-spade {{ font-size: 1.7rem; }}
-    .ace-hero {{ padding: 2rem 1.2rem 1.8rem; }}
-    .ace-wrapper {{ padding: 1.2rem 1rem; }}
-    .ace-grid {{ grid-template-columns: 1fr; gap: 0.9rem; }}
-    .ace-status-bar {{ flex-direction: column; gap: 0.6rem; }}
-    .ace-clock-row {{ justify-content: flex-start; }}
-    .ace-footer {{ flex-direction: column; gap: 0.3rem; }}
-  }}
+/* Card header row */
+.card-header {{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}}
 
-  .ace-card {{
-    background: #0d1220;
-    border: 1px solid #1a2235;
-    border-radius: 10px;
-    padding: 1.6rem 1.8rem;
-    text-decoration: none;
-    display: block;
-    transition: border-color 0.18s, background 0.18s, transform 0.15s;
-    position: relative;
-    overflow: hidden;
-  }}
+.card-tag {{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.6rem;
+  border-radius: 5px;
+}}
 
-  .ace-card::before {{
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    border-radius: 10px 10px 0 0;
-    opacity: 0;
-    transition: opacity 0.18s;
-  }}
+.tag-d1 {{ background: #F5A62318; color: #F5A623; border: 1px solid #F5A62335; }}
+.tag-h1 {{ background: #4DA6FF18; color: #4DA6FF; border: 1px solid #4DA6FF35; }}
 
-  .ace-card:hover {{
-    background: #111827;
-    transform: translateY(-2px);
-    text-decoration: none;
-  }}
+.card-num {{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: #1e2840;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}}
 
-  .ace-card:hover::before {{ opacity: 1; }}
+/* Card title */
+.card-title {{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}}
 
-  .card-d1::before {{ background: #F5A623; }}
-  .card-h1::before {{ background: #4DA6FF; }}
-  .card-d1:hover {{ border-color: #F5A62333; }}
-  .card-h1:hover {{ border-color: #4DA6FF33; }}
+.card-desc {{
+  font-size: 0.78rem;
+  color: #4a5878;
+  line-height: 1.55;
+  flex: 1;
+}}
 
-  .card-top {{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }}
+/* Status badge */
+.card-status {{
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: 20px;
+  margin: 1rem 0 1.3rem;
+  width: fit-content;
+}}
 
-  .card-badge {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 0.2rem 0.55rem;
-    border-radius: 4px;
-  }}
+/* CTA Button */
+.card-btn {{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: filter 0.15s, transform 0.12s;
+}}
 
-  .badge-d1 {{ background: #F5A62315; color: #F5A623; border: 1px solid #F5A62330; }}
-  .badge-h1 {{ background: #4DA6FF15; color: #4DA6FF; border: 1px solid #4DA6FF30; }}
+.card-d1 .card-btn {{
+  background: linear-gradient(135deg, #c87d0e, #F5A623);
+  color: #0a0c12;
+  box-shadow: 0 4px 20px #F5A62330;
+}}
 
-  .card-num {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: #2A2E3D;
-    font-weight: 600;
-  }}
+.card-h1 .card-btn {{
+  background: linear-gradient(135deg, #2a6bb5, #4DA6FF);
+  color: #ffffff;
+  box-shadow: 0 4px 20px #4DA6FF30;
+}}
 
-  .card-title {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #FFFFFF;
-    letter-spacing: 0.03em;
-    margin-bottom: 0.35rem;
-  }}
+.card:hover .card-btn {{
+  filter: brightness(1.12);
+}}
 
-  .card-desc {{
-    font-size: 0.8rem;
-    color: #5A6178;
-    line-height: 1.5;
-  }}
+/* ── EXCLUDE BAR ── */
+.exclude-bar {{
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: #1e2840;
+  text-transform: uppercase;
+  padding: 2rem 1.5rem 0.5rem;
+  max-width: 860px;
+  margin: 0 auto;
+}}
 
-  .card-footer {{
-    margin-top: 1.1rem;
-    padding-top: 0.9rem;
-    border-top: 1px solid #1A2235;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }}
+/* ── FOOTER ── */
+.footer {{
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: #1a2235;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 1.5rem 1.5rem 2rem;
+}}
 
-  .card-timing {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    color: #3A4055;
-    letter-spacing: 0.06em;
-  }}
-
-  .card-arrow {{
-    font-size: 0.9rem;
-    color: #2A2E3D;
-    transition: color 0.18s, transform 0.18s;
-  }}
-
-  .card-d1:hover .card-arrow {{ color: #F5A623; }}
-  .card-h1:hover .card-arrow {{ color: #4DA6FF; }}
-  .ace-card:hover .card-arrow {{ transform: translateX(3px); }}
-
-  .ace-footer {{
-    margin-top: 3rem;
-    padding-top: 1.2rem;
-    border-top: 1px solid #1A2235;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    color: #2A2E3D;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }}
+/* ── MOBILE ── */
+@media (max-width: 600px) {{
+  .hero-logo {{ font-size: 2rem; letter-spacing: 0.15em; }}
+  .grid {{ grid-template-columns: 1fr; gap: 1rem; padding: 0 1rem; }}
+  .card {{ padding: 1.4rem 1.2rem 1.3rem; }}
+  .card-title {{ font-size: 1rem; }}
+}}
 </style>
 </head>
 <body>
 
-  <!-- Hero header matching ACE scanner style -->
-  <div class="ace-hero">
-    <div class="ace-hero-logo">
-      <span class="ace-spade">♠</span> ACE HUB
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-logo">♠ &nbsp;ACE &nbsp;HUB</div>
+  <div class="hero-sub">Accumulation Computation Engine</div>
+  <div class="hero-divider"></div>
+</div>
+
+<!-- CLOCK -->
+<div class="clock-bar">
+  <span class="clock-time">{time_str} ET</span>
+  <span class="clock-sep">·</span>
+  <span class="clock-date">{date_str}</span>
+</div>
+
+<!-- SECTION -->
+<div class="section-label">// TSX Scanner Suite</div>
+
+<!-- CARDS -->
+<div class="grid">
+
+  <!-- ACE 1 -->
+  <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="card card-d1">
+    <div class="card-header">
+      <span class="card-tag tag-d1">D1 · Daily</span>
+      <span class="card-num">ACE 1</span>
     </div>
-    <div class="ace-hero-sub">Accumulation Computation Engine</div>
-    <div class="ace-hero-divider"></div>
-  </div>
-
-  <!-- Content -->
-  <div class="ace-wrapper">
-
-    <div class="ace-clock-row">
-      <div>
-        <div class="ace-clock">{time_str} ET</div>
-        <div class="ace-clock-label">{date_str}</div>
-      </div>
+    <div class="card-title">Narrow State</div>
+    <div class="card-desc">MA20 ≈ MA200 within 3% — rarest, highest conviction breakout. Holy Grail score 9+.</div>
+    <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
+      <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
+      {d1_status[0]}
     </div>
+    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
+  </a>
 
-    <div class="ace-status-bar">
-      <div class="ace-status-pill"><span class="ace-dot {d1_dot_class}"></span> {d1_text}</div>
-      <div class="ace-status-pill"><span class="ace-dot {h1_dot_class}"></span> {h1_text}</div>
-      <div class="ace-status-pill"><span class="ace-dot dot-dim"></span> Excludes: Mining · Energy · Gold · Materials · Utilities · Real Estate</div>
+  <!-- ACE 2 -->
+  <a href="https://ace-d1-ws.streamlit.app" target="_blank" class="card card-d1">
+    <div class="card-header">
+      <span class="card-tag tag-d1">D1 · Daily</span>
+      <span class="card-num">ACE 2</span>
     </div>
-
-    <div class="ace-section">// Scanners</div>
-
-    <div class="ace-grid">
-
-      <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="ace-card card-d1">
-        <div class="card-top">
-          <span class="card-badge badge-d1">D1 · Daily</span>
-          <span class="card-num">ACE 1</span>
-        </div>
-        <div class="card-title">Narrow State</div>
-        <div class="card-desc">MA20 ≈ MA200 within 3% — rarest, highest conviction breakout setups. Holy Grail score 9+.</div>
-        <div class="card-footer">
-          <span class="card-timing">⏱ Run after 4:00 PM ET</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://ace-d1-ws.streamlit.app" target="_blank" class="ace-card card-d1">
-        <div class="card-top">
-          <span class="card-badge badge-d1">D1 · Daily</span>
-          <span class="card-num">ACE 2</span>
-        </div>
-        <div class="card-title">Wide Down RCB</div>
-        <div class="card-desc">MA20 well below MA200 — Random Consolidation Breakout setups in declining MA state.</div>
-        <div class="card-footer">
-          <span class="card-timing">⏱ Run after 4:00 PM ET</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://ace-h1-ns.streamlit.app" target="_blank" class="ace-card card-h1">
-        <div class="card-top">
-          <span class="card-badge badge-h1">H1 · Hourly</span>
-          <span class="card-num">ACE 3</span>
-        </div>
-        <div class="card-title">Narrow State H1</div>
-        <div class="card-desc">Hourly Narrow State breakouts — intraday MA convergence signals for same-day entries.</div>
-        <div class="card-footer">
-          <span class="card-timing">⏱ Run at 10:31 AM ET</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://ace-h1-ws.streamlit.app" target="_blank" class="ace-card card-h1">
-        <div class="card-top">
-          <span class="card-badge badge-h1">H1 · Hourly</span>
-          <span class="card-num">ACE 4</span>
-        </div>
-        <div class="card-title">Wide Down RCB H1</div>
-        <div class="card-desc">Hourly Wide Down RCB setups — declining MA state breakouts on the first hourly bar.</div>
-        <div class="card-footer">
-          <span class="card-timing">⏱ Run at 10:31 AM ET</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
+    <div class="card-title">Wide Down RCB</div>
+    <div class="card-desc">MA20 well below MA200 — Random Consolidation Breakout in declining MA state.</div>
+    <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
+      <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
+      {d1_status[0]}
     </div>
+    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
+  </a>
 
-    <div class="ace-footer">
-      <span>acetradingsystem.com</span>
-      <span>TSX · Min $5 CAD · Oliver Velez / iFundTraders methodology</span>
+  <!-- ACE 3 -->
+  <a href="https://ace-h1-ns.streamlit.app" target="_blank" class="card card-h1">
+    <div class="card-header">
+      <span class="card-tag tag-h1">H1 · Hourly</span>
+      <span class="card-num">ACE 3</span>
     </div>
+    <div class="card-title">Narrow State H1</div>
+    <div class="card-desc">Hourly Narrow State breakouts — MA convergence signals for intraday entries.</div>
+    <div class="card-status" style="background:{h1_status[2]};color:{h1_status[1]};border:1px solid {h1_status[3]}">
+      <span style="width:6px;height:6px;border-radius:50%;background:{h1_status[1]};box-shadow:0 0 5px {h1_status[1]};display:inline-block;flex-shrink:0"></span>
+      {h1_status[0]}
+    </div>
+    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
+  </a>
 
-  </div>
+  <!-- ACE 4 -->
+  <a href="https://ace-h1-ws.streamlit.app" target="_blank" class="card card-h1">
+    <div class="card-header">
+      <span class="card-tag tag-h1">H1 · Hourly</span>
+      <span class="card-num">ACE 4</span>
+    </div>
+    <div class="card-title">Wide Down RCB H1</div>
+    <div class="card-desc">Hourly Wide Down RCB — declining MA state breakouts on the first hourly bar.</div>
+    <div class="card-status" style="background:{h1_status[2]};color:{h1_status[1]};border:1px solid {h1_status[3]}">
+      <span style="width:6px;height:6px;border-radius:50%;background:{h1_status[1]};box-shadow:0 0 5px {h1_status[1]};display:inline-block;flex-shrink:0"></span>
+      {h1_status[0]}
+    </div>
+    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
+  </a>
+
+</div>
+
+<div class="exclude-bar">
+  Excludes: Mining · Energy · Gold · Materials · Utilities · Real Estate &nbsp;·&nbsp; Min $5 CAD
+</div>
+
+<div class="footer">acetradingsystem.com</div>
 
 </body>
-</html>
-"""
+</html>"""
 
-components.html(html, height=1000, scrolling=True)
+components.html(html, height=1050, scrolling=True)
