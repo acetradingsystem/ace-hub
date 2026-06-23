@@ -51,8 +51,15 @@ html = f"""
     background: #0D0F14;
     color: #E8EAF0;
     font-family: 'Inter', sans-serif;
-    padding: 2.5rem 2rem 2rem 2rem;
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }}
+
+  .ace-wrapper {{
+    width: 100%;
+    max-width: 960px;
+    padding: 2.5rem 2rem 2rem 2rem;
   }}
 
   .ace-header {{
@@ -144,7 +151,6 @@ html = f"""
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;
-    max-width: 860px;
   }}
 
   .ace-card {{
@@ -263,11 +269,11 @@ html = f"""
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
-    max-width: 860px;
   }}
 </style>
 </head>
 <body>
+<div class="ace-wrapper">
 
   <div class="ace-header">
     <div>
@@ -349,6 +355,7 @@ html = f"""
     <span>TSX · Min $5 CAD · Oliver Velez / iFundTraders methodology</span>
   </div>
 
+</div>
 </body>
 </html>
 """
