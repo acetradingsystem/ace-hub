@@ -310,7 +310,7 @@ html = f"""
   <!-- Hero header matching ACE scanner style -->
   <div class="ace-hero">
     <div class="ace-hero-logo">
-      <span class="ace-spade">♠</span> A C E
+      <span class="ace-spade">♠</span> ACE
     </div>
     <div class="ace-hero-sub">Accumulation Computation Engine</div>
     <div class="ace-hero-divider"></div>
