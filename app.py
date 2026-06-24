@@ -21,8 +21,6 @@ st.markdown("""
 
 et_tz = pytz.timezone("America/New_York")
 now_et = datetime.now(et_tz)
-time_str = now_et.strftime("%H:%M:%S")
-date_str = now_et.strftime("%a %b %d, %Y")
 
 hour = now_et.hour
 minute = now_et.minute
@@ -88,39 +86,7 @@ body {{
   margin: 1.4rem auto 0;
 }}
 
-/* ── CLOCK ── */
-.clock-bar {{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.9rem 1.5rem;
-  background: #0a0f1e;
-  border-bottom: 1px solid #0f1525;
-}}
-
-.clock-time {{
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #8892A4;
-  letter-spacing: 0.1em;
-}}
-
-.clock-sep {{
-  color: #1e2840;
-  font-size: 0.8rem;
-}}
-
-.clock-date {{
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  color: #3a4a60;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}}
-
-/* ── SECTION LABEL ── */
+/* ── EXCLUDE BAR ── */
 .section-label {{
   text-align: center;
   font-family: 'JetBrains Mono', monospace;
@@ -326,15 +292,9 @@ body {{
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-logo">♠&nbsp;ACE</div>
+  <div class="hero-logo">♠ &nbsp;ACE &nbsp;HUB</div>
   <div class="hero-sub">Accumulation Computation Engine</div>
-  </div>
-
-<!-- CLOCK -->
-<div class="clock-bar">
-  <span class="clock-time">{time_str} ET</span>
-  <span class="clock-sep">·</span>
-  <span class="clock-date">{date_str}</span>
+  <div class="hero-divider"></div>
 </div>
 
 <!-- SECTION -->
@@ -346,10 +306,10 @@ body {{
   <!-- ACE 1 -->
   <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="card card-d1">
     <div class="card-header">
-      <span class="card-tag tag-d1">D1 · Daily</span>
+      <span class="card-tag tag-d1">ACE-D1-NS</span>
       <span class="card-num">ACE 1</span>
     </div>
-    <div class="card-title">Narrow State</div>
+    <div class="card-title">Narrow State Daily Scan</div>
     <div class="card-desc">MA20 ≈ MA200 within 3% — rarest, highest conviction breakout. Holy Grail score 9+.</div>
     <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
       <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
@@ -361,10 +321,10 @@ body {{
   <!-- ACE 2 -->
   <a href="https://ace-d1-ws.streamlit.app" target="_blank" class="card card-d1">
     <div class="card-header">
-      <span class="card-tag tag-d1">D1 · Daily</span>
+      <span class="card-tag tag-d1">ACE-D1-WS</span>
       <span class="card-num">ACE 2</span>
     </div>
-    <div class="card-title">Wide Down RCB</div>
+    <div class="card-title">Wide Down RCB Daily Scan</div>
     <div class="card-desc">MA20 well below MA200 — Random Consolidation Breakout in declining MA state.</div>
     <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
       <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
@@ -376,10 +336,10 @@ body {{
   <!-- ACE 3 -->
   <a href="https://ace-h1-ns.streamlit.app" target="_blank" class="card card-h1">
     <div class="card-header">
-      <span class="card-tag tag-h1">H1 · Hourly</span>
+      <span class="card-tag tag-h1">ACE-H1-NS</span>
       <span class="card-num">ACE 3</span>
     </div>
-    <div class="card-title">Narrow State H1</div>
+    <div class="card-title">Narrow State Hourly Scan</div>
     <div class="card-desc">Hourly Narrow State breakouts — MA convergence signals for intraday entries.</div>
     <div class="card-status" style="background:{h1_status[2]};color:{h1_status[1]};border:1px solid {h1_status[3]}">
       <span style="width:6px;height:6px;border-radius:50%;background:{h1_status[1]};box-shadow:0 0 5px {h1_status[1]};display:inline-block;flex-shrink:0"></span>
@@ -391,10 +351,10 @@ body {{
   <!-- ACE 4 -->
   <a href="https://ace-h1-ws.streamlit.app" target="_blank" class="card card-h1">
     <div class="card-header">
-      <span class="card-tag tag-h1">H1 · Hourly</span>
+      <span class="card-tag tag-h1">ACE-H1-WS</span>
       <span class="card-num">ACE 4</span>
     </div>
-    <div class="card-title">Wide Down RCB H1</div>
+    <div class="card-title">Wide Down RCB Hourly Scan</div>
     <div class="card-desc">Hourly Wide Down RCB — declining MA state breakouts on the first hourly bar.</div>
     <div class="card-status" style="background:{h1_status[2]};color:{h1_status[1]};border:1px solid {h1_status[3]}">
       <span style="width:6px;height:6px;border-radius:50%;background:{h1_status[1]};box-shadow:0 0 5px {h1_status[1]};display:inline-block;flex-shrink:0"></span>
