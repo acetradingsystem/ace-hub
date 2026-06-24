@@ -296,34 +296,6 @@ body {{
 <!-- CARDS -->
 <div class="grid">
 
-  <!-- ACE 1 -->
-  <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="card card-d1">
-    <div class="card-header">
-      <span class="card-tag tag-d1">ACE-D1-NS</span>
-      <span class="card-num">ACE 1</span>
-    </div>
-    <div class="card-title">Narrow State Daily Scan</div>
-    <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
-      <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
-      {d1_status[0]}
-    </div>
-    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
-  </a>
-
-  <!-- ACE 2 -->
-  <a href="https://ace-d1-ws.streamlit.app" target="_blank" class="card card-d1">
-    <div class="card-header">
-      <span class="card-tag tag-d1">ACE-D1-WS</span>
-      <span class="card-num">ACE 2</span>
-    </div>
-    <div class="card-title">Wide State Daily Scan</div>
-    <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
-      <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
-      {d1_status[0]}
-    </div>
-    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
-  </a>
-
   <!-- ACE 3 -->
   <a href="https://ace-h1-ns.streamlit.app" target="_blank" class="card card-h1">
     <div class="card-header">
@@ -353,6 +325,36 @@ body {{
   </a>
 
 </div>
+
+
+  <!-- ACE 1 -->
+  <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="card card-d1">
+    <div class="card-header">
+      <span class="card-tag tag-d1">ACE-D1-NS</span>
+      <span class="card-num">ACE 1</span>
+    </div>
+    <div class="card-title">Narrow State Daily Scan</div>
+    <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
+      <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
+      {d1_status[0]}
+    </div>
+    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
+  </a>
+
+  <!-- ACE 2 -->
+  <a href="https://ace-d1-ws.streamlit.app" target="_blank" class="card card-d1">
+    <div class="card-header">
+      <span class="card-tag tag-d1">ACE-D1-WS</span>
+      <span class="card-num">ACE 2</span>
+    </div>
+    <div class="card-title">Wide State Daily Scan</div>
+    <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
+      <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
+      {d1_status[0]}
+    </div>
+    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
+  </a>
+
 
 
 </body>
