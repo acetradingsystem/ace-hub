@@ -354,13 +354,6 @@ body {{
   </a>
 
 </div>
-
-<div class="exclude-bar">
-  Excludes: Mining · Energy · Gold · Materials · Utilities · Real Estate &nbsp;·&nbsp; Min $5 CAD
-</div>
-
-<div class="footer">acetradingsystem.com</div>
-
 </body>
 </html>"""
 
