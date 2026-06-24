@@ -4,7 +4,7 @@ from datetime import datetime
 import pytz
 
 st.set_page_config(
-    page_title="ACE Hub",
+    page_title="ACE SCANS",
     page_icon="♠",
     layout="wide",
 )
