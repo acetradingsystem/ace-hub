@@ -298,7 +298,7 @@ body {{
 </div>
 
 <!-- SECTION -->
-<div class="section-label">// TSX Scanner Suite</div>
+<div class="section-label">// TSX Market State Scanners</div>
 
 <!-- CARDS -->
 <div class="grid">
@@ -324,7 +324,7 @@ body {{
       <span class="card-tag tag-d1">ACE-D1-WS</span>
       <span class="card-num">ACE 2</span>
     </div>
-    <div class="card-title">Wide Down RCB Daily Scan</div>
+    <div class="card-title">Wide State Daily Scan</div>
     <div class="card-desc">MA20 well below MA200 — Random Consolidation Breakout in declining MA state.</div>
     <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
       <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
@@ -339,7 +339,7 @@ body {{
       <span class="card-tag tag-h1">ACE-H1-NS</span>
       <span class="card-num">ACE 3</span>
     </div>
-    <div class="card-title">Narrow State Hourly Scan</div>
+    <div class="card-title">Narrow State Scan</div>
     <div class="card-desc">Hourly Narrow State breakouts — MA convergence signals for intraday entries.</div>
     <div class="card-status" style="background:{h1_status[2]};color:{h1_status[1]};border:1px solid {h1_status[3]}">
       <span style="width:6px;height:6px;border-radius:50%;background:{h1_status[1]};box-shadow:0 0 5px {h1_status[1]};display:inline-block;flex-shrink:0"></span>
@@ -354,7 +354,7 @@ body {{
       <span class="card-tag tag-h1">ACE-H1-WS</span>
       <span class="card-num">ACE 4</span>
     </div>
-    <div class="card-title">Wide Down RCB Hourly Scan</div>
+    <div class="card-title">Wide State Scan</div>
     <div class="card-desc">Hourly Wide Down RCB — declining MA state breakouts on the first hourly bar.</div>
     <div class="card-status" style="background:{h1_status[2]};color:{h1_status[1]};border:1px solid {h1_status[3]}">
       <span style="width:6px;height:6px;border-radius:50%;background:{h1_status[1]};box-shadow:0 0 5px {h1_status[1]};display:inline-block;flex-shrink:0"></span>
