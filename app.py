@@ -79,13 +79,6 @@ body {{
   margin-top: 0.5rem;
 }}
 
-.hero-divider {{
-  width: 60px;
-  height: 1px;
-  background: #F5A62340;
-  margin: 1.4rem auto 0;
-}}
-
 /* ── EXCLUDE BAR ── */
 .section-label {{
   text-align: center;
