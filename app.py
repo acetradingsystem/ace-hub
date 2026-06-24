@@ -285,7 +285,7 @@ body {{
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-logo">♠ &nbsp;ACE &nbsp;HUB</div>
+  <div class="hero-logo">♠&nbsp;ACE&nbsp;SCANS</div>
   <div class="hero-sub">Accumulation Computation Engine</div>
   <div class="hero-divider"></div>
 </div>
