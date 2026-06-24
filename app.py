@@ -330,7 +330,7 @@ body {{
       <span class="card-tag tag-h1">ACE-H1-NS</span>
       <span class="card-num">ACE 3</span>
     </div>
-    <div class="card-title">Narrow State Scan</div>
+    <div class="card-title">Narrow State Hourly Scan</div>
     <div class="card-status" style="background:{h1_status[2]};color:{h1_status[1]};border:1px solid {h1_status[3]}">
       <span style="width:6px;height:6px;border-radius:50%;background:{h1_status[1]};box-shadow:0 0 5px {h1_status[1]};display:inline-block;flex-shrink:0"></span>
       {h1_status[0]}
@@ -344,7 +344,7 @@ body {{
       <span class="card-tag tag-h1">ACE-H1-WS</span>
       <span class="card-num">ACE 4</span>
     </div>
-    <div class="card-title">Wide State Scan</div>
+    <div class="card-title">Wide State Hourly Scan</div>
     <div class="card-status" style="background:{h1_status[2]};color:{h1_status[1]};border:1px solid {h1_status[3]}">
       <span style="width:6px;height:6px;border-radius:50%;background:{h1_status[1]};box-shadow:0 0 5px {h1_status[1]};display:inline-block;flex-shrink:0"></span>
       {h1_status[0]}
