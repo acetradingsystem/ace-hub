@@ -326,8 +326,7 @@ body {{
 
 </div>
 
-
-  <!-- ACE 1 -->
+<!-- ACE 1 -->
   <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="card card-d1">
     <div class="card-header">
       <span class="card-tag tag-d1">ACE-D1-NS</span>
