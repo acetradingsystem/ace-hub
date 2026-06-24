@@ -293,10 +293,11 @@ body {{
 <!-- SECTION -->
 <div class="section-label">// TSX Market State Scanners</div>
 
+
 <!-- CARDS -->
 <div class="grid">
-
-  <!-- ACE 3 -->
+ 
+  <!-- ACE 3 — H1 top left -->
   <a href="https://ace-h1-ns.streamlit.app" target="_blank" class="card card-h1">
     <div class="card-header">
       <span class="card-tag tag-h1">ACE-H1-NS</span>
@@ -309,8 +310,8 @@ body {{
     </div>
     <div class="card-btn">▶ &nbsp;Go to Scanner</div>
   </a>
-
-  <!-- ACE 4 -->
+ 
+  <!-- ACE 4 — H1 top right -->
   <a href="https://ace-h1-ws.streamlit.app" target="_blank" class="card card-h1">
     <div class="card-header">
       <span class="card-tag tag-h1">ACE-H1-WS</span>
@@ -323,10 +324,8 @@ body {{
     </div>
     <div class="card-btn">▶ &nbsp;Go to Scanner</div>
   </a>
-
-</div>
-
-<!-- ACE 1 -->
+ 
+  <!-- ACE 1 — D1 bottom left -->
   <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="card card-d1">
     <div class="card-header">
       <span class="card-tag tag-d1">ACE-D1-NS</span>
@@ -339,8 +338,8 @@ body {{
     </div>
     <div class="card-btn">▶ &nbsp;Go to Scanner</div>
   </a>
-
-  <!-- ACE 2 -->
+ 
+  <!-- ACE 2 — D1 bottom right -->
   <a href="https://ace-d1-ws.streamlit.app" target="_blank" class="card card-d1">
     <div class="card-header">
       <span class="card-tag tag-d1">ACE-D1-WS</span>
@@ -353,8 +352,16 @@ body {{
     </div>
     <div class="card-btn">▶ &nbsp;Go to Scanner</div>
   </a>
-
+ 
+</div>
+ 
+<div class="exclude-bar">
+  Excludes: Mining · Energy · Gold · Materials · Utilities · Real Estate &nbsp;·&nbsp; Min $5 CAD
+</div>
+ 
+<div class="footer">acetradingsystem.com</div>
+ 
 </body>
 </html>"""
-
+ 
 components.html(html, height=1050, scrolling=True)
