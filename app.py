@@ -4,7 +4,7 @@ from datetime import datetime
 import pytz
 
 st.set_page_config(
-    page_title="ACE SCANS",
+    page_title="ACE Hub",
     page_icon="♠",
     layout="wide",
 )
@@ -74,9 +74,16 @@ body {{
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.62rem;
   letter-spacing: 0.32em;
-  color: #3a4a60;
+  color: #7a8fa8;
   text-transform: uppercase;
   margin-top: 0.5rem;
+}}
+
+.hero-divider {{
+  width: 60px;
+  height: 1px;
+  background: #F5A62340;
+  margin: 1.4rem auto 0;
 }}
 
 /* ── EXCLUDE BAR ── */
@@ -86,7 +93,7 @@ body {{
   font-size: 0.72rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #2a3650;
+  color: #7a8fa8;
   margin: 2.2rem 0 1.4rem;
 }}
 
@@ -285,18 +292,17 @@ body {{
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-logo">♠&nbsp;ACE&nbsp;SCANS</div>
+  <div class="hero-logo">♠ &nbsp;ACE &nbsp;HUB</div>
   <div class="hero-sub">Accumulation Computation Engine</div>
   <div class="hero-divider"></div>
 </div>
 
 <!-- SECTION -->
-<div class="section-label">// TSX Market State Scanners</div>
-
+<div class="section-label">// TSX Scanner Suite</div>
 
 <!-- CARDS -->
 <div class="grid">
- 
+
   <!-- ACE 3 — H1 top left -->
   <a href="https://ace-h1-ns.streamlit.app" target="_blank" class="card card-h1">
     <div class="card-header">
@@ -310,7 +316,7 @@ body {{
     </div>
     <div class="card-btn">▶ &nbsp;Go to Scanner</div>
   </a>
- 
+
   <!-- ACE 4 — H1 top right -->
   <a href="https://ace-h1-ws.streamlit.app" target="_blank" class="card card-h1">
     <div class="card-header">
@@ -324,7 +330,7 @@ body {{
     </div>
     <div class="card-btn">▶ &nbsp;Go to Scanner</div>
   </a>
- 
+
   <!-- ACE 1 — D1 bottom left -->
   <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="card card-d1">
     <div class="card-header">
@@ -338,7 +344,7 @@ body {{
     </div>
     <div class="card-btn">▶ &nbsp;Go to Scanner</div>
   </a>
- 
+
   <!-- ACE 2 — D1 bottom right -->
   <a href="https://ace-d1-ws.streamlit.app" target="_blank" class="card card-d1">
     <div class="card-header">
@@ -352,16 +358,16 @@ body {{
     </div>
     <div class="card-btn">▶ &nbsp;Go to Scanner</div>
   </a>
- 
+
 </div>
- 
+
 <div class="exclude-bar">
   Excludes: Mining · Energy · Gold · Materials · Utilities · Real Estate &nbsp;·&nbsp; Min $5 CAD
 </div>
- 
+
 <div class="footer">acetradingsystem.com</div>
- 
+
 </body>
 </html>"""
- 
+
 components.html(html, height=1050, scrolling=True)
