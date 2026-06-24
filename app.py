@@ -298,7 +298,7 @@ body {{
 </div>
 
 <!-- SECTION -->
-<div class="section-label">// TSX Scanner Suite</div>
+<div class="section-label">TSX Market State Scanners</div>
 
 <!-- CARDS -->
 <div class="grid">
