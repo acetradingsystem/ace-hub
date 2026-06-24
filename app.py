@@ -354,8 +354,6 @@ body {{
     <div class="card-btn">▶ &nbsp;Go to Scanner</div>
   </a>
 
-
-
 </body>
 </html>"""
 
