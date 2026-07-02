@@ -83,7 +83,7 @@ body {{
   width: 60px;
   height: 1px;
   background: #F5A62340;
-  margin: 0.8rem auto 0;
+  margin: 0.3rem auto 0;
 }}
 
 /* ── EXCLUDE BAR ── */
@@ -94,7 +94,7 @@ body {{
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: #7a8fa8;
-  margin: 1rem 0 0.8rem;
+  margin: 0.5rem 0 0.6rem;
 }}
 
 /* ── GRID ── */
@@ -193,7 +193,7 @@ body {{
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.15rem;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #8892A4;
   letter-spacing: 0.02em;
   margin-bottom: 0.5rem;
   line-height: 1.2;
@@ -247,7 +247,7 @@ body {{
 
 .card-h1 .card-btn {{
   background: linear-gradient(135deg, #2a6bb5, #4DA6FF);
-  color: #ffffff;
+  color: #0a0c12;
   box-shadow: 0 4px 20px #4DA6FF30;
 }}
 
