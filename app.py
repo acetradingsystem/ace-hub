@@ -4,7 +4,7 @@ from datetime import datetime
 import pytz
 
 st.set_page_config(
-    page_title="ACE Scans",
+    page_title="ACE Hub",
     page_icon="♠",
     layout="wide",
 )
@@ -51,7 +51,7 @@ body {{
 /* ── HERO ── */
 .hero {{
   text-align: center;
-  padding: 2.8rem 1.5rem 2rem;
+  padding: 1.8rem 1.5rem 1.4rem;
   background: radial-gradient(ellipse at 50% 0%, #0f1d3a 0%, #080c18 70%);
   border-bottom: 1px solid #111827;
   position: relative;
@@ -79,6 +79,12 @@ body {{
   margin-top: 0.5rem;
 }}
 
+.hero-divider {{
+  width: 60px;
+  height: 1px;
+  background: #F5A62340;
+  margin: 0.8rem auto 0;
+}}
 
 /* ── EXCLUDE BAR ── */
 .section-label {{
@@ -88,7 +94,7 @@ body {{
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: #7a8fa8;
-  margin: 2.2rem 0 1.4rem;
+  margin: 1rem 0 0.8rem;
 }}
 
 /* ── GRID ── */
@@ -286,13 +292,13 @@ body {{
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-logo">♠ACE</div>
+  <div class="hero-logo">♠ &nbsp;ACE &nbsp;HUB</div>
   <div class="hero-sub">Accumulation Computation Engine</div>
   <div class="hero-divider"></div>
 </div>
 
 <!-- SECTION -->
-<div class="section-label">TSX - STOCK MARKET STATE SCANNER</div>
+<div class="section-label">// TSX Scanner Suite</div>
 
 <!-- CARDS -->
 <div class="grid">
@@ -354,6 +360,13 @@ body {{
   </a>
 
 </div>
+
+<div class="exclude-bar">
+  Excludes: Mining · Energy · Gold · Materials · Utilities · Real Estate &nbsp;·&nbsp; Min $5 CAD
+</div>
+
+<div class="footer">acetradingsystem.com</div>
+
 </body>
 </html>"""
 
