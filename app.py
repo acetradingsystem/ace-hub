@@ -4,7 +4,7 @@ from datetime import datetime
 import pytz
 
 st.set_page_config(
-    page_title="ACE Hub",
+    page_title="ACE scans",
     page_icon="♠",
     layout="wide",
 )
@@ -292,13 +292,13 @@ body {{
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-logo">♠ &nbsp;ACE &nbsp;HUB</div>
+  <div class="hero-logo">♠ ACE</div>
   <div class="hero-sub">Accumulation Computation Engine</div>
   <div class="hero-divider"></div>
 </div>
 
 <!-- SECTION -->
-<div class="section-label">// TSX Scanner Suite</div>
+<div class="section-label">TORONTO STOCK EXCHANGE MARKET SCANNERS</div>
 
 <!-- CARDS -->
 <div class="grid">
