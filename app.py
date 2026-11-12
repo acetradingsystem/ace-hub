@@ -19,6 +19,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# ── MARKET-HOURS STATUS ──────────────────────────────────────────────
 et_tz = pytz.timezone("America/New_York")
 now_et = datetime.now(et_tz)
 
@@ -29,8 +30,37 @@ is_trading_day = now_et.weekday() < 5
 d1_active = is_trading_day and hour >= 16
 h1_active = is_trading_day and (hour > 10 or (hour == 10 and minute >= 31))
 
-d1_status = ("✦ READY TO RUN", "#00FF88", "#00FF8818", "#00FF8840") if d1_active else ("RUN AFTER 4:00 PM ET", "#F5A623", "#F5A62312", "#F5A62335")
-h1_status = ("✦ READY TO RUN", "#00FF88", "#00FF8818", "#00FF8840") if h1_active else ("RUN AT 10:31 AM ET", "#F5A623", "#F5A62312", "#F5A62335")
+READY = ("✦ READY TO RUN", "#00FF88", "#00FF8818", "#00FF8840")
+d1_status = READY if d1_active else ("RUN AFTER 4:00 PM ET", "#F5A623", "#F5A62312", "#F5A62335")
+h1_status = READY if h1_active else ("RUN AT 10:31 AM ET", "#F5A623", "#F5A62312", "#F5A62335")
+
+
+# ── CARD BUILDER ─────────────────────────────────────────────────────
+def scanner_card(code, num, title, kind, url, status):
+    """kind = 'h1' (blue) or 'd1' (gold). status = (label, text, bg, border)."""
+    label, color, bg, border = status
+    return f"""
+  <a href="{url}" target="_blank" rel="noopener" class="card card-{kind}">
+    <div class="card-header">
+      <span class="card-tag tag-{kind}">{code}</span>
+      <span class="card-num">ACE {num}</span>
+    </div>
+    <div class="card-title">{title}</div>
+    <div class="card-status" style="background:{bg};color:{color};border:1px solid {border}">
+      <span class="dot" style="background:{color};box-shadow:0 0 5px {color}"></span>
+      {label}
+    </div>
+    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
+  </a>"""
+
+
+# Left → right order: H1-NS, D1-NS, H1-WS, D1-WS
+cards_html = "\n".join([
+    scanner_card("ACE-H1-NS", 3, "Narrow State Hourly Scan", "h1", "https://ace-h1-ns.streamlit.app", h1_status),
+    scanner_card("ACE-D1-NS", 1, "Narrow State Daily Scan",  "d1", "https://ace-d1-ns.streamlit.app", d1_status),
+    scanner_card("ACE-H1-WS", 4, "Wide State Hourly Scan",   "h1", "https://ace-h1-ws.streamlit.app", h1_status),
+    scanner_card("ACE-D1-WS", 2, "Wide State Daily Scan",    "d1", "https://ace-d1-ws.streamlit.app", d1_status),
+])
 
 html = f"""<!DOCTYPE html>
 <html>
@@ -54,7 +84,6 @@ body {{
   padding: 1.8rem 1.5rem 1.4rem;
   background: radial-gradient(ellipse at 50% 0%, #0f1d3a 0%, #080c18 70%);
   border-bottom: 1px solid #111827;
-  position: relative;
 }}
 
 .hero-logo {{
@@ -86,7 +115,7 @@ body {{
   margin: 0.3rem auto 0;
 }}
 
-/* ── EXCLUDE BAR ── */
+/* ── SECTION LABEL ── */
 .section-label {{
   text-align: center;
   font-family: 'JetBrains Mono', monospace;
@@ -94,87 +123,71 @@ body {{
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: #7a8fa8;
-  margin: 0.5rem 0 0.6rem;
+  margin: 2.2rem 0 1.4rem;
 }}
 
-/* ── GRID ── */
+/* ── GRID: four cards in one centered row ── */
 .grid {{
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.4rem;
-  max-width: 860px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.2rem;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  align-items: stretch;
 }}
 
 /* ── CARD ── */
 .card {{
-  background: #0c1122;
+  background: linear-gradient(180deg, #0e1428 0%, #0b1020 100%);
   border-radius: 14px;
   border: 1px solid #141d30;
-  padding: 1.8rem 1.6rem 1.6rem;
+  padding: 1.7rem 1.4rem 1.4rem;
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  gap: 0;
   position: relative;
   overflow: hidden;
   transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
 }}
 
-.card::after {{
+.card:hover {{ transform: translateY(-3px); text-decoration: none; }}
+.card:focus-visible {{ outline: 2px solid #E8EAF0; outline-offset: 3px; }}
+
+/* top accent line */
+.card::before {{
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: 14px;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
+  top: 0; left: 0; right: 0; height: 3px;
 }}
 
-.card:hover {{
-  transform: translateY(-3px);
-  text-decoration: none;
-}}
-
-/* D1 card — gold glow */
+/* D1 card — gold */
 .card-d1 {{ border-color: #1e2a40; }}
+.card-d1::before {{ background: linear-gradient(90deg, transparent, #F5A623, transparent); }}
 .card-d1:hover {{ border-color: #F5A62340; box-shadow: 0 8px 40px #F5A62318; }}
-.card-d1::before {{
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, transparent, #F5A623, transparent);
-  border-radius: 14px 14px 0 0;
-}}
 
-/* H1 card — blue glow */
+/* H1 card — blue */
 .card-h1 {{ border-color: #1a2540; }}
+.card-h1::before {{ background: linear-gradient(90deg, transparent, #4DA6FF, transparent); }}
 .card-h1:hover {{ border-color: #4DA6FF40; box-shadow: 0 8px 40px #4DA6FF18; }}
-.card-h1::before {{
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, transparent, #4DA6FF, transparent);
-  border-radius: 14px 14px 0 0;
-}}
 
-/* Card header row */
+/* header row: code badge + ACE number */
 .card-header {{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.3rem;
 }}
 
 .card-tag {{
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   padding: 0.22rem 0.6rem;
   border-radius: 5px;
+  white-space: nowrap;
 }}
 
 .tag-d1 {{ background: #F5A62318; color: #F5A623; border: 1px solid #F5A62335; }}
@@ -183,60 +196,65 @@ body {{
 .card-num {{
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
-  color: #1e2840;
+  color: #34425f;
   font-weight: 700;
   letter-spacing: 0.1em;
+  white-space: nowrap;
 }}
 
-/* Card title */
+/* title */
 .card-title {{
   font-family: 'JetBrains Mono', monospace;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: #8892A4;
-  letter-spacing: 0.02em;
-  margin-bottom: 0.5rem;
-  line-height: 1.2;
+  color: #aab4c8;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  min-height: 2.7em;           /* keeps all four cards aligned if a title wraps */
 }}
 
-.card-desc {{
-  font-size: 0.78rem;
-  color: #4a5878;
-  line-height: 1.55;
-  flex: 1;
-}}
-
-/* Status badge */
+/* status pill */
 .card-status {{
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.25rem 0.7rem;
+  padding: 0.28rem 0.7rem;
   border-radius: 20px;
-  margin: 1rem 0 1.3rem;
+  margin: 1rem 0 1.6rem;
   width: fit-content;
+  max-width: 100%;
+  white-space: nowrap;
 }}
 
-/* CTA Button */
+.dot {{
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}}
+
+/* CTA — pinned to the bottom so buttons line up across the row */
 .card-btn {{
+  margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
-  padding: 0.85rem 1rem;
+  padding: 0.8rem 1rem;
   border-radius: 8px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  transition: filter 0.15s, transform 0.12s;
+  transition: filter 0.15s;
 }}
 
 .card-d1 .card-btn {{
@@ -251,119 +269,46 @@ body {{
   box-shadow: 0 4px 20px #4DA6FF30;
 }}
 
-.card:hover .card-btn {{
-  filter: brightness(1.12);
+.card:hover .card-btn {{ filter: brightness(1.12); }}
+
+@media (prefers-reduced-motion: reduce) {{
+  .card, .card-btn {{ transition: none; }}
+  .card:hover {{ transform: none; }}
 }}
 
-/* ── EXCLUDE BAR ── */
-.exclude-bar {{
-  text-align: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  color: #1e2840;
-  text-transform: uppercase;
-  padding: 2rem 1.5rem 0.5rem;
-  max-width: 860px;
-  margin: 0 auto;
+/* ── FOOTER SPACER ── */
+.footer {{ height: 2.5rem; }}
+
+/* ── RESPONSIVE: 4 across → 2×2 → stacked ── */
+@media (max-width: 1100px) {{
+  .grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
 }}
 
-/* ── FOOTER ── */
-.footer {{
-  text-align: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  color: #1a2235;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 1.5rem 1.5rem 2rem;
-}}
-
-/* ── MOBILE ── */
 @media (max-width: 600px) {{
   .hero-logo {{ font-size: 2rem; letter-spacing: 0.15em; }}
   .grid {{ grid-template-columns: 1fr; gap: 1rem; padding: 0 1rem; }}
   .card {{ padding: 1.4rem 1.2rem 1.3rem; }}
-  .card-title {{ font-size: 1rem; }}
+  .card-title {{ min-height: 0; }}
 }}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-logo">♠ACE</div>
   <div class="hero-sub">Accumulation Computation Engine</div>
   <div class="hero-divider"></div>
 </div>
 
-<!-- SECTION -->
 <div class="section-label">TORONTO STOCK EXCHANGE MARKET SCANNERS</div>
 
-<!-- CARDS -->
 <div class="grid">
+{cards_html}
+</div>
 
-  <!-- ACE 3 — H1 top left -->
-  <a href="https://ace-h1-ns.streamlit.app" target="_blank" class="card card-h1">
-    <div class="card-header">
-      <span class="card-tag tag-h1">ACE-H1-NS</span>
-      <span class="card-num">ACE 3</span>
-    </div>
-    <div class="card-title">Narrow State Hourly Scan</div>
-    <div class="card-status" style="background:{h1_status[2]};color:{h1_status[1]};border:1px solid {h1_status[3]}">
-      <span style="width:6px;height:6px;border-radius:50%;background:{h1_status[1]};box-shadow:0 0 5px {h1_status[1]};display:inline-block;flex-shrink:0"></span>
-      {h1_status[0]}
-    </div>
-    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
-  </a>
-
-  <!-- ACE 4 — H1 top right -->
-  <a href="https://ace-h1-ws.streamlit.app" target="_blank" class="card card-h1">
-    <div class="card-header">
-      <span class="card-tag tag-h1">ACE-H1-WS</span>
-      <span class="card-num">ACE 4</span>
-    </div>
-    <div class="card-title">Wide State Hourly Scan</div>
-    <div class="card-status" style="background:{h1_status[2]};color:{h1_status[1]};border:1px solid {h1_status[3]}">
-      <span style="width:6px;height:6px;border-radius:50%;background:{h1_status[1]};box-shadow:0 0 5px {h1_status[1]};display:inline-block;flex-shrink:0"></span>
-      {h1_status[0]}
-    </div>
-    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
-  </a>
-
-  <!-- ACE 1 — D1 bottom left -->
-  <a href="https://ace-d1-ns.streamlit.app" target="_blank" class="card card-d1">
-    <div class="card-header">
-      <span class="card-tag tag-d1">ACE-D1-NS</span>
-      <span class="card-num">ACE 1</span>
-    </div>
-    <div class="card-title">Narrow State Daily Scan</div>
-    <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
-      <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
-      {d1_status[0]}
-    </div>
-    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
-  </a>
-
-  <!-- ACE 2 — D1 bottom right -->
-  <a href="https://ace-d1-ws.streamlit.app" target="_blank" class="card card-d1">
-    <div class="card-header">
-      <span class="card-tag tag-d1">ACE-D1-WS</span>
-      <span class="card-num">ACE 2</span>
-    </div>
-    <div class="card-title">Wide State Daily Scan</div>
-    <div class="card-status" style="background:{d1_status[2]};color:{d1_status[1]};border:1px solid {d1_status[3]}">
-      <span style="width:6px;height:6px;border-radius:50%;background:{d1_status[1]};box-shadow:0 0 5px {d1_status[1]};display:inline-block;flex-shrink:0"></span>
-      {d1_status[0]}
-    </div>
-    <div class="card-btn">▶ &nbsp;Go to Scanner</div>
-  </a>
-
-  </div>
+<div class="footer"></div>
 
 </body>
 </html>"""
 
-components.html(html, height=1050, scrolling=True)
-
-
+components.html(html, height=720, scrolling=True)
