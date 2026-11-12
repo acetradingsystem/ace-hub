@@ -117,13 +117,34 @@ body {{
 
 /* ── SECTION LABEL ── */
 .section-label {{
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  max-width: 1320px;
+  margin: 2.6rem auto 2rem;
+  padding: 0 1.5rem;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
+  font-size: 1.6rem;
+  font-weight: 800;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #7a8fa8;
-  margin: 2.2rem 0 1.4rem;
+  color: #E8EAF0;
+  white-space: nowrap;
+}}
+
+.section-label::before,
+.section-label::after {{
+  content: '';
+  flex: 1;
+  height: 1px;
+}}
+.section-label::before {{ background: linear-gradient(90deg, transparent, #F5A62355); }}
+.section-label::after  {{ background: linear-gradient(270deg, transparent, #F5A62355); }}
+
+.section-label .tsx {{
+  color: #F5A623;
+  text-shadow: 0 0 28px #F5A62345;
 }}
 
 /* ── GRID: four cards in one centered row ── */
@@ -286,6 +307,7 @@ body {{
 
 @media (max-width: 600px) {{
   .hero-logo {{ font-size: 2rem; letter-spacing: 0.15em; }}
+  .section-label {{ font-size: 1.05rem; letter-spacing: 0.18em; gap: 0.9rem; margin: 2rem auto 1.4rem; }}
   .grid {{ grid-template-columns: 1fr; gap: 1rem; padding: 0 1rem; }}
   .card {{ padding: 1.4rem 1.2rem 1.3rem; }}
   .card-title {{ min-height: 0; }}
@@ -300,7 +322,7 @@ body {{
   <div class="hero-divider"></div>
 </div>
 
-<div class="section-label">TORONTO STOCK EXCHANGE MARKET SCANNERS</div>
+<div class="section-label"><span><span class="tsx">TSX</span> MARKET SCANNERS</span></div>
 
 <div class="grid">
 {cards_html}
