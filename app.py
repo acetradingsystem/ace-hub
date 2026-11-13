@@ -116,13 +116,25 @@ body {{
 }}
 
 /* ── SECTION LABEL ── */
+.section-eyebrow {{
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: #4DA6FF;
+  text-shadow: 0 0 24px #4DA6FF40;
+  margin: 2.6rem 0 0;
+}}
+
 .section-label {{
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1.6rem;
   max-width: 1320px;
-  margin: 2.6rem auto 2rem;
+  margin: 0.7rem auto 2rem;
   padding: 0 1.5rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.6rem;
@@ -307,7 +319,8 @@ body {{
 
 @media (max-width: 600px) {{
   .hero-logo {{ font-size: 2rem; letter-spacing: 0.15em; }}
-  .section-label {{ font-size: 1.05rem; letter-spacing: 0.18em; gap: 0.9rem; margin: 2rem auto 1.4rem; }}
+  .section-eyebrow {{ font-size: 0.62rem; letter-spacing: 0.26em; margin-top: 2rem; }}
+  .section-label {{ font-size: 1.05rem; letter-spacing: 0.18em; gap: 0.9rem; margin: 0.5rem auto 1.4rem; }}
   .grid {{ grid-template-columns: 1fr; gap: 1rem; padding: 0 1rem; }}
   .card {{ padding: 1.4rem 1.2rem 1.3rem; }}
   .card-title {{ min-height: 0; }}
@@ -322,6 +335,7 @@ body {{
   <div class="hero-divider"></div>
 </div>
 
+<div class="section-eyebrow">Narrow and Wide State</div>
 <div class="section-label"><span><span class="tsx">TSX</span> MARKET SCANNERS</span></div>
 
 <div class="grid">
@@ -333,4 +347,4 @@ body {{
 </body>
 </html>"""
 
-components.html(html, height=720, scrolling=True)
+components.html(html, height=770, scrolling=True)
