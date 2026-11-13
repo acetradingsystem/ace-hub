@@ -119,7 +119,7 @@ body {{
 .section-eyebrow {{
   text-align: center;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.42em;
   text-transform: uppercase;
