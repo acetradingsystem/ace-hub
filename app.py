@@ -13,6 +13,7 @@ st.markdown("""
 <style>
   #MainMenu, footer, header { visibility: hidden; }
   [data-testid="stToolbar"] { display: none; }
+  [data-testid="stHeader"] { display: none; }
   .block-container { padding: 0 !important; max-width: 100% !important; }
   [data-testid="stAppViewContainer"] { background-color: #080c18 !important; }
   iframe { display: block; }
@@ -75,7 +76,6 @@ body {{
   background: #080c18;
   color: #E8EAF0;
   font-family: 'Inter', sans-serif;
-  min-height: 100vh;
 }}
 
 /* ── HERO ── */
@@ -119,7 +119,7 @@ body {{
 .section-eyebrow {{
   text-align: center;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.42em;
   text-transform: uppercase;
@@ -318,6 +318,7 @@ body {{
 }}
 
 @media (max-width: 600px) {{
+  .hero {{ padding-top: 2.2rem; }}
   .hero-logo {{ font-size: 2rem; letter-spacing: 0.15em; }}
   .section-eyebrow {{ font-size: 0.62rem; letter-spacing: 0.26em; margin-top: 2rem; }}
   .section-label {{ font-size: 1.05rem; letter-spacing: 0.18em; gap: 0.9rem; margin: 0.5rem auto 1.4rem; }}
@@ -343,6 +344,21 @@ body {{
 </div>
 
 <div class="footer"></div>
+
+<script>
+  // Resize the embedding frame to fit the content, so on phones the whole
+  // page scrolls normally instead of scrolling inside a fixed-height box.
+  function fitFrame() {{
+    try {{
+      var h = Math.ceil(document.body.getBoundingClientRect().height);
+      window.frameElement.style.height = h + 'px';
+    }} catch (e) {{}}
+  }}
+  window.addEventListener('load', fitFrame);
+  window.addEventListener('resize', fitFrame);
+  if (window.ResizeObserver) {{ new ResizeObserver(fitFrame).observe(document.body); }}
+  fitFrame();
+</script>
 
 </body>
 </html>"""
